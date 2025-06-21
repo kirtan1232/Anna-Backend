@@ -1,12 +1,12 @@
-const express = require('express');
-const uploadMiddleware = require("../middleware/uploadMiddleware");
-const quizController = require('../controller/quizController');
+const express = require("express");
 const router = express.Router();
+const uploadMiddleware = require("../middleware/quizmulter");
+const quizController = require("../controller/quizController"); // Adjust path based on your structure
 
-router.post('/addquiz', uploadMiddleware, quizController.createQuiz);
-router.get('/getquiz', quizController.getAllQuizzes);
-router.get('/getAllQuizzes', quizController.getAllQuizzes);
-router.put('/updatequiz/:quizId', uploadMiddleware, quizController.updateQuiz);
-router.delete('/deletequiz/:quizId', quizController.deleteQuiz);
+router.post("/addquiz", uploadMiddleware, quizController.createQuiz);
+router.get("/getquiz", quizController.getQuizzesByDayAndInstrument);
+router.get("/getAllQuizzes", quizController.getAllQuizzes);
+router.put("/updatequiz/:quizId", uploadMiddleware, quizController.updateQuiz);
+router.delete("/deletequiz/:quizId", quizController.deleteQuiz);
 
 module.exports = router;

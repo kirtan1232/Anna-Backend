@@ -5,35 +5,26 @@ const path = require('path');
 // Add a new practice session
 exports.createSession = async (req, res) => {
     try {
-        const { instrument, day, title, description, duration, instructions, mediaUrl } = req.body;
-
-        if (!instrument || !day || !title || !description || !duration || !instructions) {
-            return res.status(400).json({ error: 'All fields are required' });
-        }
-
-        let fileUrl = null;
-        if (req.file) {
-            fileUrl = req.file.path;
-        } else if (mediaUrl) {
-            fileUrl = mediaUrl;
-        }
-
-        const newSession = new Session({
-            instrument,
-            day,
-            title,
-            description,
-            duration,
-            instructions,
-            file: fileUrl
-        });
-
-        const savedSession = await newSession.save();
-        return res.status(201).json({ message: 'Practice session added successfully', session: savedSession });
+      const { instrument, day, title, description, duration, instructions, mediaUrl } = req.body;
+      if (!instrument || !day || !title || !description || !duration || !instructions) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+      let fileUrl = req.file ? req.file.path : mediaUrl || null;
+      const newSession = new Session({
+        instrument,
+        day,
+        title,
+        description,
+        duration,
+        instructions,
+        file: fileUrl,
+      });
+      const savedSession = await newSession.save();
+      return res.status(201).json({ message: "Practice session added successfully", session: savedSession });
     } catch (err) {
-        return res.status(500).json({ error: 'An error occurred while creating the session' });
+      return res.status(500).json({ error: "An error occurred while creating the session" });
     }
-};
+  };
 
 // Update a practice session
 exports.updateSession = async (req, res) => {

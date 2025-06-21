@@ -1,18 +1,21 @@
-// model/CompletedSessions.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const completedSessionsSchema = new mongoose.Schema({
+const completedSessionsSchema = new mongoose.Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    sessionIds: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Session',
-        default: [],
-    },
-}, { timestamps: true });
+    completedSessions: [
+      {
+        day: { type: String, required: true },
+        instrument: { type: String, required: true },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
-const CompletedSessions = mongoose.model('CompletedSessions', completedSessionsSchema);
+const CompletedSessions = mongoose.model("CompletedSessions", completedSessionsSchema);
 module.exports = CompletedSessions;
