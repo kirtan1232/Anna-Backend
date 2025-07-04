@@ -21,7 +21,7 @@ connectDb();
 
 // CORS configuration
 app.use(cors({
-    origin: ['http://localhost:5173','https://anna-roan.vercel.app/'],
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
