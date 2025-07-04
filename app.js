@@ -13,11 +13,13 @@ const esewaRoutes = require('./routes/esewaRoutes');
 const supportRoutes = require('./routes/supportRoutes');
 const songRequestRoutes = require('./routes/songRequestRoutes');
 
+require("dotenv").config();
+
 const path = require("path");
 const app = express();
-
-// Connect to MongoDB
 connectDb();
+
+
 
 // CORS configuration
 app.use(cors({
