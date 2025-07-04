@@ -13,17 +13,15 @@ const esewaRoutes = require('./routes/esewaRoutes');
 const supportRoutes = require('./routes/supportRoutes');
 const songRequestRoutes = require('./routes/songRequestRoutes');
 
-require("dotenv").config();
-
 const path = require("path");
 const app = express();
+
+// Connect to MongoDB
 connectDb();
-
-
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173','https://anna-roan.vercel.app/'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
