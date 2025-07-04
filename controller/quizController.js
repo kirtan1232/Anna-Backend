@@ -5,7 +5,7 @@ exports.createQuiz = async (req, res) => {
     const { quizData } = req.body;
     const parsedQuizData = JSON.parse(quizData);
 
-    // Map files to quizzes
+    // Map files to quizzesz
     if (req.files && req.files.length > 0) {
       parsedQuizData.quizzes.forEach((quiz, index) => {
         if (req.files[index]) {

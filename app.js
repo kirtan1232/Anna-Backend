@@ -9,6 +9,9 @@ const quizRoutes = require('./routes/quizRoutes');
 const favoritesRoutes = require('./routes/favoritesRoutes');
 const completedLessonsRoutes = require('./routes/completedLessonsRoutes'); // Add this line
 const completedSessionsRoutes = require('./routes/completedSessionsRoutes');
+const esewaRoutes = require('./routes/esewaRoutes');
+const supportRoutes = require('./routes/supportRoutes');
+const songRequestRoutes = require('./routes/songRequestRoutes');
 
 const path = require("path");
 const app = express();
@@ -38,6 +41,9 @@ app.use('/api/quiz', quizRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/completed', completedLessonsRoutes); // Add this line
 app.use('/api/completed-sessions', completedSessionsRoutes); // Add this line
+app.use('/api/esewa', esewaRoutes);
+app.use('/api/support', supportRoutes);
+app.use('/api/song-requests', songRequestRoutes);
 
 // Handle 404
 app.use((req, res) => {

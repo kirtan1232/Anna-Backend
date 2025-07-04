@@ -10,7 +10,7 @@ const songSchema = new mongoose.Schema({
     }],
     chordDiagrams: [String],
     docxFiles: [String],
-});
+},{ timestamps: true });
 
 const Song = mongoose.model("Song", songSchema);
 

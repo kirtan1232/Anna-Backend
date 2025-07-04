@@ -6,7 +6,7 @@ exports.getCompletedLessons = async (req, res) => {
     const completedLessons = await CompletedLessons.findOne({ userId });
 
     if (!completedLessons) {
-      return res.status(200).json({ completedLessons: [] }); // Changed to 200 for consistency
+      return res.status(200).json({ completedLessons: [] });
     }
 
     res.json({ completedLessons: completedLessons.completedLessons });
@@ -31,18 +31,24 @@ exports.addCompletedLesson = async (req, res) => {
     }
 
     // Check if the lesson is already completed
-    const isAlreadyCompleted = completedLessons.completedLessons.some(
+    const lessonIndex = completedLessons.completedLessons.findIndex(
       (lesson) => lesson.day === day && lesson.instrument === instrument
     );
-    if (isAlreadyCompleted) {
-      return res.status(400).json({ message: "Lesson already completed" });
+
+    if (lessonIndex !== -1) {
+      // Update existing completion with a new timestamp
+      completedLessons.completedLessons[lessonIndex].completedAt = new Date();
+    } else {
+      // Add new completion
+      completedLessons.completedLessons.push({ day, instrument, completedAt: new Date() });
     }
 
-    // Add new completion
-    completedLessons.completedLessons.push({ day, instrument });
     await completedLessons.save();
 
-    res.status(200).json({ message: "Lesson marked as completed", completedLessons: completedLessons.completedLessons });
+    res.status(200).json({
+      message: lessonIndex !== -1 ? "Lesson completion updated" : "Lesson marked as completed",
+      completedLessons: completedLessons.completedLessons,
+    });
   } catch (error) {
     console.error("Error adding completed lesson:", error);
     res.status(500).json({ error: "Failed to mark lesson as completed", error: error.message });
